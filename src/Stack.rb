@@ -14,6 +14,10 @@ module Stack
       @arr.shift
     end
 
+    def peek
+      @arr[0]
+    end
+
     def to_s
       @arr.to_s
     end
@@ -23,7 +27,15 @@ module Stack
     end
 
     def delete i
-      @arr.delete_at (i - 1)
+      @arr.delete_at(i - 1)
+    end
+
+    def size
+      @arr.length
+    end
+
+    def empty?
+      @arr.length == 0
     end
   end
 
