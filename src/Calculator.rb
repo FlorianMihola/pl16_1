@@ -43,7 +43,7 @@ module Calculator
 
       loop do
         char = readChar
-        if ["\n", nil].include? char
+        if ["\n", "\r", nil].include? char
           return line
         else
           line += char
