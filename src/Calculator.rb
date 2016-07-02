@@ -70,7 +70,7 @@ module Calculator
       @inputs.pop
 
       # put the first non-digit char back on to the input stream
-      @inputs.push StringIO.new char
+      @inputs.push StringIO.new char unless char.nil?
 
       puts "read '#{string}' for integer" if @veryVerbose
       return Integer(string)
@@ -153,7 +153,7 @@ module Calculator
       elsif char == 'x' or char.nil? # exit
         puts 'exit' if @verbose
         return false
-      elsif char =~ /[ \t\n]/m # whitespace
+      elsif char =~ /[ \t\r\n]/m # whitespace
         puts "ignoring #{char}" if @veryVerbose
       elsif char =~ /[0-9]/
         if @buffer.nil?
@@ -166,7 +166,8 @@ module Calculator
       elsif @extended and char == 'S'
         puts "stack #{@stack}"
       else
-        abort "Illegal character '#{char}'"
+        charWithOrd = if char.nil? then char else "#{char} (#{char.ord})" end
+        abort "Illegal character '#{charWithOrd}'"
       end
 
       puts "  -> #{@stack}" if @verbose and char != 'S'
