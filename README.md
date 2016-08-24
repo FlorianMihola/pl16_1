@@ -81,3 +81,14 @@ try this instead:
     stack ["4 5*"]   # now it's on the stack
     aS               # execute it and print stack
     stack [20]
+
+run the prime factor example like so:
+
+    $ ./main.rb -bv
+    [[i1c0= [2 [1c 3c % 0= [1+] [1cw 2c 3d / 2] 3c 4d 1+ d a  2c 1=] [[4c 5d 4c 5d 4ca [4c5d 4c5d 1ca] [1d1d1d1d] 3c4d1+da] 1ca] a 1] [] [3c4d1+da] a]  [[2ca [1d1d] [1ca] 3c4d1+da] 1ca] a x] a
+    read integer
+    1001 # input
+    7 11 13 read integer # output, 7 * 11 * 13 = 1001
+    0 # input, exit program
+
+the output isn't that pretty but it seems to work
