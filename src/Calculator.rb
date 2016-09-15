@@ -8,7 +8,7 @@ require 'stringio'
 
 module Calculator
   class Calc
-    def initialize input, extended, verbosity, buffered, msgs
+    def initialize input, extended, verbosity, buffered, echo, msgs
       @stack  = Stack.new
       @buffer = nil
 
@@ -20,6 +20,7 @@ module Calculator
       @verbose         = verbosity >= 2
       @veryVerbose     = verbosity >= 3
       @buffered        = buffered
+      @echo            = echo
       @msgs            = msgs
     end
 
@@ -36,6 +37,15 @@ module Calculator
         if char.nil?
           @inputs.pop
         end
+      end
+
+      if @echo and not @inputs.peek.is_a? StringIO
+        if char =~ /[\r\n]/m
+          puts char
+        else
+          print char
+        end
+        STDOUT.flush
       end
 
       return char
@@ -189,8 +199,8 @@ module Calculator
     end
   end
 
-  def self.new input, extended, verbose, buffered, msgs
-    Calc.new input, extended, verbose, buffered, msgs
+  def self.new input, extended, verbose, buffered, echo, msgs
+    Calc.new input, extended, verbose, buffered, echo, msgs
   end
 
   # helpers
