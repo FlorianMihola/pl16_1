@@ -181,6 +181,9 @@ module Calculator
       @buffer = nil
     end
 
+    def addPrelude p
+      @inputs.push StringIO.new p
+    end
   end
 
   def self.new input, extended, verbose, buffered

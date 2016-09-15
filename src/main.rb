@@ -11,6 +11,7 @@ require 'optparse'
 $verbosity = 0
 $extended  = false
 $buffered  = false
+$prelude   = nil
 
 OptionParser.new do |opts|
   opts.banner = "Usage: main.rb [options]"
@@ -23,13 +24,21 @@ OptionParser.new do |opts|
     $extended = true
   end
 
-  opts.on('-b', '--buffered', 'buffer input, it will only be read once a newline character is found') do |b|
+  opts.on('-b', '--buffered', 'Buffer input, it will only be read once a newline character is found') do |b|
     $buffered = true
+  end
+
+  opts.on('-p', '--prelude STRING', 'Add STRING as first part of input') do |p|
+    $prelude = p
   end
 end.parse!
 
 def main
   calc = Calculator.new STDIN, $extended, $verbosity, $buffered
+
+  if $prelude != nil
+    calc.addPrelude $prelude
+  end
 
   calc.start
 end
