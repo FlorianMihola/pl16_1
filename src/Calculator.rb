@@ -8,16 +8,19 @@ require 'stringio'
 
 module Calculator
   class Calc
-    def initialize input, extended, verbosity, buffered
+    def initialize input, extended, verbosity, buffered, msgs
       @stack  = Stack.new
       @buffer = nil
+
       @inputs = Stack.new
       @inputs.push input
-      @extended = extended
+
+      @extended        = extended
       @slightlyVerbose = verbosity >= 1
       @verbose         = verbosity >= 2
       @veryVerbose     = verbosity >= 3
-      @buffered = buffered
+      @buffered        = buffered
+      @msgs            = msgs
     end
 
     def readChar
@@ -139,10 +142,10 @@ module Calculator
           abort 'No block on Stack'
         end
       elsif char == 'i'
-        puts 'read integer' if @slightlyVerbose
+        puts @msgs[:readInteger] if @slightlyVerbose
         @stack.push readInt
       elsif char == 'b'
-        puts 'read block' if @slightlyVerbose
+        puts @msgs[:readBlock] if @slightlyVerbose
         @stack.push readLine
       elsif char == 'w'
         if @stack.size > 0
@@ -186,8 +189,8 @@ module Calculator
     end
   end
 
-  def self.new input, extended, verbose, buffered
-    Calc.new input, extended, verbose, buffered
+  def self.new input, extended, verbose, buffered, msgs
+    Calc.new input, extended, verbose, buffered, msgs
   end
 
   # helpers

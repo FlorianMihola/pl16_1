@@ -12,6 +12,9 @@ $verbosity = 0
 $extended  = false
 $buffered  = false
 $prelude   = nil
+$msgs      = { readInteger: 'read integer',
+               readBlock: 'read block'
+             }
 
 OptionParser.new do |opts|
   opts.banner = "Usage: main.rb [options]"
@@ -31,10 +34,19 @@ OptionParser.new do |opts|
   opts.on('-p', '--prelude STRING', 'Add STRING as first part of input') do |p|
     $prelude = p
   end
+
+  opts.on('-m', '--messageReadInteger STRING', 'Use STRING to ask user for integer input') do |m|
+    $msgs[:readInteger] = m
+  end
+
+  opts.on('-M', '--messageReadBlock STRING', 'Use STRING to ask user for block input') do |m|
+    $msgs[:readBlock] = m
+  end
+
 end.parse!
 
 def main
-  calc = Calculator.new STDIN, $extended, $verbosity, $buffered
+  calc = Calculator.new STDIN, $extended, $verbosity, $buffered, $msgs
 
   if $prelude != nil
     calc.addPrelude $prelude
