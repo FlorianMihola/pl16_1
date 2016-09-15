@@ -76,7 +76,7 @@ module Calculator
       @inputs.push StringIO.new char unless char.nil?
 
       puts "read '#{string}' for integer" if @veryVerbose
-      return Integer(string)
+      return Integer(string, 10)
     end
 
     def readBlock
@@ -180,7 +180,7 @@ module Calculator
 
     def pushBuffer
       puts "push #{@buffer}" if @verbose and not @buffer.nil?
-      @stack.push(Integer(@buffer)) unless @buffer.nil?
+      @stack.push(Integer(@buffer, 10)) unless @buffer.nil?
       @buffer = nil
     end
 
