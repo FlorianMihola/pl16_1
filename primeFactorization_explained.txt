@@ -1,0 +1,70 @@
+8 2 P L     ^ 4c 5d 4c 5d 4ca
+P L 8 2 P   ^ a
+
+P L 8 2     ^ 1c 3c % 0=
+P L 8 2 2 8 ^ % 0=
+P L 8 2 1   ^ if then else
+
+P L 8 2     ^ 1cw 2c 3d / 2
+
+print 2
+
+P L 8 2     ^ 2c 3d / 2
+P L 2 8     ^ / 2
+P L 4 2     ^ 2c 1=
+P L 4 2 0   ^
+
+P L 4 2     ^ 4c5d 4c5d 1ca
+4 2 P L L   ^ a
+
+4 2 P L     ^ 4c 5d 4c 5d 4ca
+P L 4 2 P   ^ a
+
+# ask for integer and do prime factorization
+[i1c0= [2 [1c 3c % 0= [1+] [1cw 2c 3d / 2] 3c 4d 1+ d a  2c 1=] [[4c 5d 4c 5d 4ca [4c5d 4c5d 1ca] [1d1d1d1d] 3c4d1+da] 1ca] a 1] [] [3c4d1+da] a]
+
+# prime factorization
+[2 [1c 3c % 0= [1+] [1cw 2c 3d / 2] 3c 4d 1+ d a  2c 1=] [[4c 5d 4c 5d 4ca [4c5d 4c5d 1ca] [1d1d1d1d] 3c4d1+da] 1ca] a 1]
+
+# full program
+
+[
+  [                            # main block
+    i1c0=                      # ask for integer -> [n is 0]
+    [                          # else: prime factorization [n] -> [] prints primes
+      2                        # start with 2
+      [
+        1c 3c % 0=             # is divisor?
+        [1+]                   # else: add 1
+        [1cw 2c 3d / 2]        # then: print prime, divide by prime, put 2 on stack
+        3c4d1+da               # if
+        2c 1=                  # -> [1] if finished
+      ]
+      [
+        [ 4c 5d 4c 5d 4ca      # "L"
+          [4c5d 4c5d 1ca]      # else:
+          [1d1d1d1d]           # then: delete top 4 items
+          3c4d1+da             # if finished
+        ]                      # "L"
+        1ca
+      ]
+      a
+      1                        # ? remove crashes
+    ]                          # /prime factorization
+    []                         # then: do nothing
+    [3c4d1+da]                 # if user input was 0
+    a
+  ]
+
+  [
+    [
+      2ca                      # run main block
+      [1d1d]                   # else: quit
+      [1ca]                    # then: copy and run
+      3c4d1+da                 # if
+    ]
+    1ca
+  ]
+  a
+  x
+] a
